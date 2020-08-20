@@ -51,9 +51,9 @@
 
     - name: unpack prometheus binaries
       become: false
-      unarchive:
-        src: "/tmp/prometheus-{{ prometheus_version }}.linux-{{ go_arch }}.tar.gz"
-        dest: "/tmp"
+      shell: |
+        cd tmp && untar -xzf "/tmp/prometheus-{{ prometheus_version }}.linux-{{ go_arch }}.tar.gz"
+      args:
         creates: "/tmp/prometheus-{{ prometheus_version }}.linux-{{ go_arch }}/prometheus"
       delegate_to: localhost
       check_mode: false
